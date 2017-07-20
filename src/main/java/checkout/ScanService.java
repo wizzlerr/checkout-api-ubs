@@ -1,25 +1,26 @@
-package checkout.service;
+package checkout;
 
-import checkout.dao.ItemDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+
 
 /**
  * Created by Adam on 2017-07-19.
  */
 @Service
-@Scope("session")
 public class ScanService {
 
-    //autowire jakiśtam DAO z jedno metodo getById i zamockowac w testach
+    private final ItemDao itemDao;
+
     @Autowired
-    private ItemDAO itemDAO;
+    public ScanService(ItemDao itemDao) {
+        this.itemDao = itemDao;
+    }
 
     public BigDecimal scan(long id) {
-        return itemDAO.getById(id).getUnitPrice();
+        return itemDao.getById(id).getUnitPrice();
     }
 
 }
